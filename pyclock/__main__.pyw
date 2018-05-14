@@ -4,7 +4,6 @@ from analog_clock import AnalogClock
 white = (255, 255, 255)
 black = (0, 0, 0)
 red = (255, 0, 0)
-green = (0, 255, 0)
 
 screen_size = (400, 400)
 center = (200, 200)
