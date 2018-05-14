@@ -6,11 +6,13 @@ black = (0, 0, 0)
 red = (255, 0, 0)
 green = (0, 255, 0)
 
-(width, height) = (400, 400)
+screen_size = (400, 400)
 center = (200, 200)
 
 pygame_clock = pygame.time.Clock()
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode(screen_size)
+
+analog_clock = AnalogClock(center)
 
 
 def draw(second_hand_end_position, minute_hand_end_position):
@@ -22,10 +24,8 @@ def draw(second_hand_end_position, minute_hand_end_position):
     pygame.display.flip()
 
 
-pygame.init()
 pygame.display.set_caption("pyclock")
-
-analog_clock = AnalogClock(center)
+pygame.init()
 
 running = True
 while running:
