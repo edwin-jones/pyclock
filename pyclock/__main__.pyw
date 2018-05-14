@@ -1,5 +1,5 @@
 import pygame
-from pygame.math import Vector2
+from analog_clock import AnalogClock
 
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -9,45 +9,11 @@ green = (0, 255, 0)
 (width, height) = (400, 400)
 center = (200, 200)
 
-start_hand_end_position = Vector2(0, -150)
-second_hand_end_position = Vector2()
-minute_hand_end_position = Vector2()
-
-second_angle = 0
-minute_angle = 0
-
-clock = pygame.time.Clock()
+pygame_clock = pygame.time.Clock()
 screen = pygame.display.set_mode((width, height))
 
 
-def update(delta_time):
-    global second_angle
-    global minute_angle
-    global minute_hand_end_position
-    global second_hand_end_position
-
-    #clamp angles
-    if second_angle >= 360:
-        second_angle = 0
-    
-    if minute_angle >= 360:
-        minute_angle = 0
-    
-    angle_per_second = 360 / 60
-    second_angle = second_angle + angle_per_second / 1000 * delta_time
-    
-    angle_per_minute = (360 / 60) / 60
-    minute_angle = minute_angle + angle_per_minute / 1000 * delta_time
-
-    second_hand_end_position = start_hand_end_position.rotate(second_angle) / 1.25
-    minute_hand_end_position = start_hand_end_position.rotate(minute_angle) / 2
-
-    # The current endpoint is the startpoint vector + the
-    # rotated original endpoint vector.
-    second_hand_end_position = second_hand_end_position + center
-    minute_hand_end_position = minute_hand_end_position + center
-
-def draw():
+def draw(second_hand_end_position, minute_hand_end_position):
     screen.fill(white)
     pygame.draw.circle(screen, black, center, 10)
     pygame.draw.circle(screen, black, center, 150, 1)
@@ -57,13 +23,16 @@ def draw():
 
 
 pygame.init()
+pygame.display.set_caption("pyclock")
+
+analog_clock = AnalogClock(center)
 
 running = True
 while running:
 
-    delta_time = clock.tick(60)
-    update(delta_time)
-    draw()  
+    delta_time = pygame_clock.tick(60)
+    analog_clock.update(delta_time)
+    draw(analog_clock.second_hand_end_position, analog_clock.minute_hand_end_position)  
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
