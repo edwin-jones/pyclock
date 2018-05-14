@@ -18,15 +18,15 @@ class AnalogClock:
         self.center = center
 
 
-    def _get_angle(self, angle, angle_per_millisecond, delta_time):
-        """get the angle we should rotate by based on the time passed"""
+    def _get_angle(self, angle, angle_increment, delta_time_milliseconds):
+        """get the angle we should rotate by based on the time passed in milliseconds"""
 
         #clamp angle
         if angle >= 360:
             angle = 0
 
         
-        angle = angle + angle_per_millisecond / 1000 * delta_time
+        angle = angle + angle_increment / 1000 * delta_time_milliseconds
 
         return angle
 
