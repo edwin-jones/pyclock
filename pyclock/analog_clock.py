@@ -30,7 +30,7 @@ class AnalogClock:
 
    
     def update(self, delta_time):
-        """Update the analog clock. Takes in the amount of milliseconds that have passed since the last call"""
+        """Update the analog clock. Takes in the amount of milliseconds that have passed since the last call."""
 
         self._second_angle = self._get_angle(self._second_angle, self._angle_per_second, delta_time)
         self._minute_angle = self._get_angle(self._minute_angle, self._angle_per_minute, delta_time)
