@@ -1,5 +1,7 @@
 # Challenges
 
+1. How could we make the animation less smooth?
+
 1. Try to make the hands faster - what about a millisecond hand?
 
 1. Could we draw differently? What about different colors? How would they work?
