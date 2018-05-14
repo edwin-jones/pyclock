@@ -11,6 +11,8 @@ screen.fill(white)
 
 pygame.draw.circle(screen, black, center, 3)
 
+pygame.draw.circle(screen, black, center, 200, 1)
+
 pygame.display.flip()
 
 
@@ -19,5 +21,3 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-
