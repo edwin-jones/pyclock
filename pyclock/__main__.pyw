@@ -20,7 +20,7 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((width, height))
 
 
-def update():
+def update(delta_time):
     global second_angle
     global minute_angle
     global minute_hand_end_position
@@ -33,12 +33,11 @@ def update():
     if minute_angle >= 360:
         minute_angle = 0
     
-
     angle_per_second = 360 / 60
-    second_angle = second_angle + angle_per_second
+    second_angle = second_angle + angle_per_second / 1000 * delta_time
     
     angle_per_minute = (360 / 60) / 60
-    minute_angle = minute_angle + angle_per_minute
+    minute_angle = minute_angle + angle_per_minute / 1000 * delta_time
 
     second_hand_end_position = start_hand_end_position.rotate(second_angle) / 1.25
     minute_hand_end_position = start_hand_end_position.rotate(minute_angle) / 2
@@ -62,9 +61,9 @@ pygame.init()
 running = True
 while running:
 
-    update()
-    draw()
-    clock.tick(1)
+    delta_time = clock.tick(60)
+    update(delta_time)
+    draw()  
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
