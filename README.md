@@ -1,4 +1,4 @@
-# pyrayder
+# pyclock
 A simple analog clock created in Python 3 and Pygame.
 
 ## Setup
