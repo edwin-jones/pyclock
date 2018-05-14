@@ -7,7 +7,7 @@ class AnalogClock:
     second_hand_end_position = Vector2()
     minute_hand_end_position = Vector2()
 
-    _start_hand_end_position = Vector2(0, -150)
+    _start_hand_end_position = Vector2(0, -150) #150 will be default length of a hand
     _second_angle = 0
     _minute_angle = 0 
     _angle_per_second = 360 / 60
