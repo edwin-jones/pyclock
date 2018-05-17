@@ -23,7 +23,7 @@ screen = pygame.display.set_mode(screen_size)
 def draw_graduations(analog_clock):
     """this function will draw all the graduations around the edge of the clock"""
 
-    for position in analog_clock.get_graduation_positions():
+    for position in analog_clock.graduation_positions:
         pygame.draw.line(screen, black, position.start, position.end, 1)
 
 

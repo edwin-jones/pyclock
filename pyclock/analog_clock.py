@@ -21,6 +21,8 @@ class AnalogClock:
         # negative radius means the vector starts point up/at 12
         self._start_hand_end_position = Vector2(0, -radius)
 
+        self.graduation_positions = list(self._get_graduation_positions())
+
 
     def _get_angle(self, total_positions, time_part):
         """gets the angle we should rotate by based on the time part (secs/mins/hrs)"""
@@ -31,7 +33,7 @@ class AnalogClock:
         return angle
 
 
-    def get_graduation_positions(self):
+    def _get_graduation_positions(self):
         """gets all the graduation start and end positions for the analog clock.
 
         returns:
