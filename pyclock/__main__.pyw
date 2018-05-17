@@ -1,4 +1,5 @@
 import pygame
+
 from analog_clock import AnalogClock
 
 # create some tuples to represent RGB colors, positions and sizes.
@@ -19,13 +20,23 @@ pygame_clock = pygame.time.Clock()
 screen = pygame.display.set_mode(screen_size)
 
 
-# this is a small helper function we use to keep the code tidy
+def draw_graduations(analog_clock):
+    """this function will draw all the graduations around the edge of the clock"""
+
+    for position in analog_clock.get_graduation_positions():
+        pygame.draw.line(screen, black, position.start, position.end, 1)
+
+
 def draw(analog_clock):
+    """this function draws the clock on the screen"""
 
     # pygame always draws back to front so what we do here is:
     
     # draw a white screen
     screen.fill(white)
+
+    # draw the graduations
+    draw_graduations(analog_clock)
 
     # draw the second hand
     pygame.draw.line(screen, red, center, analog_clock.second_hand_end_position, 1)
@@ -40,7 +51,7 @@ def draw(analog_clock):
     pygame.draw.circle(screen, black, center, 10)
 
     # draw the outer line of the clock.
-    pygame.draw.circle(screen, black, center, 150, 1)
+    pygame.draw.circle(screen, black, center, 151, 1)
 
     # we have to call this for the display to update.
     pygame.display.flip()
