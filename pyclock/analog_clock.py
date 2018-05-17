@@ -3,11 +3,12 @@ import collections
 from datetime import datetime
 from pygame.math import Vector2
 
-GraduationPosition = collections.namedtuple('GraduationPosition','start, end')
-
 class AnalogClock:
     """This class is used to calculate the hand positions on an analog stopwatch-like clock"""
 
+    # this tuple is used to store graduation position information for the analog clock face
+    GraduationPosition = collections.namedtuple('GraduationPosition', 'start, end')
+    
     second_hand_end_position = Vector2()
     minute_hand_end_position = Vector2()
     hour_hand_end_position = Vector2()
@@ -22,32 +23,42 @@ class AnalogClock:
 
 
     def _get_angle(self, total_positions, time_part):
-        """get the angle we should rotate by based on the time part (secs/mins/hrs)"""
+        """gets the angle we should rotate by based on the time part (secs/mins/hrs)"""
 
         # calculate the angle, plus the incremement size calculated with secs/mins/hrs
         angle = 360 / total_positions * time_part
 
         return angle
 
-    def get_graduation_end_positions(self):
 
-        graduation_end_positions = []
+    def get_graduation_positions(self):
+        """gets all the graduation start and end positions for the analog clock.
+
+        returns:
+            A generator that iterates over GraduationPositions       
+        """
 
         for i in range(1, 13):
+
+            # get the angle for the current graduation
             angle = self._get_angle(12, i)
+
+            # get the end position for the current graduation
             end = self._center + self._start_hand_end_position.rotate(angle)
+
+            # get the direction from the end to the center (not normalized)
             direction = self._center - end
+
+            # set the end point to be a scaled proportion of the direction
+            # away from the start towards the center
             start = end + direction * 0.1
 
-            position = GraduationPosition(start, end)
-            graduation_end_positions.append(position)
-
-        return graduation_end_positions
-
+            # return this position of the sequence (this is a generator)
+            yield self.GraduationPosition(start, end)
 
 
     def update(self):
-        """Update the analog clock."""
+        """update the analog clock"""
 
         # get the current local system time
         time = datetime.now().time()
@@ -58,7 +69,8 @@ class AnalogClock:
         hour_angle = self._get_angle(12, time.hour)
         
         # calculate the end positions of the hands.
-        # we cheat a little here by altering the results to make them shorter than the clock's radius.
+        # we cheat a little here by altering the results to make
+        # them shorter than the clock's radius.
         self.second_hand_end_position = self._start_hand_end_position.rotate(second_angle) * 0.9
         self.minute_hand_end_position = self._start_hand_end_position.rotate(minute_angle) * 0.75
         self.hour_hand_end_position = self._start_hand_end_position.rotate(hour_angle) * 0.5

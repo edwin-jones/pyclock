@@ -1,6 +1,6 @@
 import pygame
+
 from analog_clock import AnalogClock
-from pygame.math import Vector2
 
 # create some tuples to represent RGB colors, positions and sizes.
 white = (255, 255, 255)
@@ -21,18 +21,21 @@ screen = pygame.display.set_mode(screen_size)
 
 
 def draw_graduations(analog_clock):
-    for position in analog_clock.get_graduation_end_positions():
+    """this function will draw all the graduations around the edge of the clock"""
+
+    for position in analog_clock.get_graduation_positions():
         pygame.draw.line(screen, black, position.start, position.end, 1)
 
 
-# this is a small helper function we use to keep the code tidy
 def draw(analog_clock):
+    """this function draws the clock on the screen"""
 
     # pygame always draws back to front so what we do here is:
     
     # draw a white screen
     screen.fill(white)
 
+    # draw the graduations
     draw_graduations(analog_clock)
 
     # draw the second hand
