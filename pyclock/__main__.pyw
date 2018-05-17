@@ -20,9 +20,9 @@ pygame_clock = pygame.time.Clock()
 screen = pygame.display.set_mode(screen_size)
 
 
-def draw2(analog_clock):
+def draw_graduations(analog_clock):
     for position in analog_clock.get_graduation_end_positions():
-        pygame.draw.circle(screen, black, (int(position.x), int(position.y)), 5)
+        pygame.draw.line(screen, black, position.start, position.end, 1)
 
 
 # this is a small helper function we use to keep the code tidy
@@ -33,13 +33,13 @@ def draw(analog_clock):
     # draw a white screen
     screen.fill(white)
 
+    draw_graduations(analog_clock)
+
     # draw the second hand
     pygame.draw.line(screen, red, center, analog_clock.second_hand_end_position, 1)
 
     # draw the minute hand
     pygame.draw.line(screen, black, center, analog_clock.minute_hand_end_position, 5)
-
-    draw2(analog_clock)
 
     # draw the hour hand
     pygame.draw.line(screen, black, center, analog_clock.hour_hand_end_position, 5)
@@ -48,7 +48,7 @@ def draw(analog_clock):
     pygame.draw.circle(screen, black, center, 10)
 
     # draw the outer line of the clock.
-    pygame.draw.circle(screen, black, center, 150, 1)
+    pygame.draw.circle(screen, black, center, 151, 1)
 
     # we have to call this for the display to update.
     pygame.display.flip()

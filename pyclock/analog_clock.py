@@ -1,6 +1,9 @@
+import collections
+
 from datetime import datetime
 from pygame.math import Vector2
 
+GraduationPosition = collections.namedtuple('GraduationPosition','start, end')
 
 class AnalogClock:
     """This class is used to calculate the hand positions on an analog stopwatch-like clock"""
@@ -32,8 +35,11 @@ class AnalogClock:
 
         for i in range(1, 13):
             angle = self._get_angle(12, i)
-            position = self._start_hand_end_position.rotate(angle)
-            position += self._center
+            end = self._center + self._start_hand_end_position.rotate(angle)
+            direction = self._center - end
+            start = end + direction * 0.1
+
+            position = GraduationPosition(start, end)
             graduation_end_positions.append(position)
 
         return graduation_end_positions
@@ -52,10 +58,10 @@ class AnalogClock:
         hour_angle = self._get_angle(12, time.hour)
         
         # calculate the end positions of the hands.
-        # we cheat a little here by dividing the results to make them shorter than the clock's radius.
-        self.second_hand_end_position = self._start_hand_end_position.rotate(second_angle) / 1.25
-        self.minute_hand_end_position = self._start_hand_end_position.rotate(minute_angle) / 1.5
-        self.hour_hand_end_position = self._start_hand_end_position.rotate(hour_angle) / 2
+        # we cheat a little here by altering the results to make them shorter than the clock's radius.
+        self.second_hand_end_position = self._start_hand_end_position.rotate(second_angle) * 0.9
+        self.minute_hand_end_position = self._start_hand_end_position.rotate(minute_angle) * 0.75
+        self.hour_hand_end_position = self._start_hand_end_position.rotate(hour_angle) * 0.5
 
         # We have to add the center of the clock to the results to make sure 
         # the hands have the correct origin
