@@ -18,11 +18,11 @@ class AnalogClock:
         self._start_hand_end_position = Vector2(0, -radius)
 
 
-    def _get_angle(self, angle_increment, time_part):
+    def _get_angle(self, total_positions, time_part):
         """get the angle we should rotate by based on the time part (secs/mins/hrs)"""
 
         # calculate the angle, plus the incremement size calculated with secs/mins/hrs
-        angle = 360 / angle_increment * time_part
+        angle = 360 / total_positions * time_part
 
         return angle
 
