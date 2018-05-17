@@ -26,6 +26,19 @@ class AnalogClock:
 
         return angle
 
+    def get_graduation_end_positions(self):
+
+        graduation_end_positions = []
+
+        for i in range(1, 13):
+            angle = self._get_angle(12, i)
+            position = self._start_hand_end_position.rotate(angle)
+            position += self._center
+            graduation_end_positions.append(position)
+
+        return graduation_end_positions
+
+
 
     def update(self):
         """Update the analog clock."""

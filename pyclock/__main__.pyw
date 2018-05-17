@@ -1,5 +1,6 @@
 import pygame
 from analog_clock import AnalogClock
+from pygame.math import Vector2
 
 # create some tuples to represent RGB colors, positions and sizes.
 white = (255, 255, 255)
@@ -19,6 +20,11 @@ pygame_clock = pygame.time.Clock()
 screen = pygame.display.set_mode(screen_size)
 
 
+def draw2(analog_clock):
+    for position in analog_clock.get_graduation_end_positions():
+        pygame.draw.circle(screen, black, (int(position.x), int(position.y)), 5)
+
+
 # this is a small helper function we use to keep the code tidy
 def draw(analog_clock):
 
@@ -32,6 +38,8 @@ def draw(analog_clock):
 
     # draw the minute hand
     pygame.draw.line(screen, black, center, analog_clock.minute_hand_end_position, 5)
+
+    draw2(analog_clock)
 
     # draw the hour hand
     pygame.draw.line(screen, black, center, analog_clock.hour_hand_end_position, 5)
