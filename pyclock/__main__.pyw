@@ -37,7 +37,7 @@ def draw(analog_clock):
     pygame.draw.circle(screen, black, analog_clock.center, 10)
 
     # draw the outer line of the clock.
-    pygame.draw.circle(screen, black, analog_clock.center, 150, 1)
+    pygame.draw.circle(screen, black, analog_clock.center, analog_clock.radius, 1)
 
 
 # set the title of the window and initialize pygame
