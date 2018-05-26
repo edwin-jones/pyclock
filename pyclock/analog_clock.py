@@ -15,12 +15,28 @@ class AnalogClock:
 
     def __init__(self, center, radius):
         
-        #store the location of the center of the clock
-        self._center = center
+        # store the location of the center of the clock
+        self.center = center
+
+        # store radius of the clock
+        self.radius = radius
+
+        # figure out how thick the hour hand should be based on radius
+        self.hour_hand_width = max(int(radius * 0.05), 1)
+
+         # figure out how thick the minute hand should be based on radius
+        self.minute_hand_width = max(int(radius * 0.05), 1)
+
+        # figure out how thick the second hand should be based on radius
+        self.second_hand_width = max(int(radius * 0.01), 1)
+
+        # figure out how large the center dot of the clock face should be
+        self.center_dot_radius = int(radius * 0.075)
 
         # negative radius means the vector starts point up/at 12
         self._start_hand_end_position = Vector2(0, -radius)
 
+        # a list of all the graduation positions on the clock face
         self.graduation_positions = list(self._get_graduation_positions())
 
 
@@ -46,10 +62,10 @@ class AnalogClock:
             angle = self._get_angle(12, i)
 
             # get the end position for the current graduation
-            end = self._center + self._start_hand_end_position.rotate(angle)
+            end = self.center + self._start_hand_end_position.rotate(angle)
 
             # get the direction from the end to the center (not normalized)
-            direction = self._center - end
+            direction = self.center - end
 
             # set the end point to be a scaled proportion of the direction
             # away from the start towards the center
@@ -79,6 +95,6 @@ class AnalogClock:
 
         # We have to add the center of the clock to the results to make sure 
         # the hands have the correct origin
-        self.second_hand_end_position += self._center
-        self.minute_hand_end_position += self._center
-        self.hour_hand_end_position += self._center
+        self.second_hand_end_position += self.center
+        self.minute_hand_end_position += self.center
+        self.hour_hand_end_position += self.center
