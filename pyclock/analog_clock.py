@@ -12,7 +12,7 @@ class AnalogClock:
     def __init__(self, center, radius):
         
         #store the location of the center of the clock
-        self._center = center
+        self.center = center
 
         # negative radius means the vector starts point up/at 12
         self._start_hand_end_position = Vector2(0, -radius)
@@ -47,6 +47,6 @@ class AnalogClock:
 
         # We have to add the center of the clock to the results to make sure 
         # the hands have the correct origin
-        self.second_hand_end_position += self._center
-        self.minute_hand_end_position += self._center
-        self.hour_hand_end_position += self._center
+        self.second_hand_end_position += self.center
+        self.minute_hand_end_position += self.center
+        self.hour_hand_end_position += self.center

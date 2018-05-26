@@ -24,26 +24,20 @@ def draw(analog_clock):
 
     # pygame always draws back to front so what we do here is:
     
-    # draw a white screen
-    screen.fill(white)
-
     # draw the second hand
-    pygame.draw.line(screen, red, center, analog_clock.second_hand_end_position, 1)
+    pygame.draw.line(screen, red, analog_clock.center, analog_clock.second_hand_end_position, 1)
 
     # draw the minute hand
-    pygame.draw.line(screen, black, center, analog_clock.minute_hand_end_position, 5)
+    pygame.draw.line(screen, black, analog_clock.center, analog_clock.minute_hand_end_position, 5)
 
     # draw the hour hand
-    pygame.draw.line(screen, black, center, analog_clock.hour_hand_end_position, 5)
+    pygame.draw.line(screen, black, analog_clock.center, analog_clock.hour_hand_end_position, 5)
 
     # draw the center 'dot' of the clock'
-    pygame.draw.circle(screen, black, center, 10)
+    pygame.draw.circle(screen, black, analog_clock.center, 10)
 
     # draw the outer line of the clock.
-    pygame.draw.circle(screen, black, center, 150, 1)
-
-    # we have to call this for the display to update.
-    pygame.display.flip()
+    pygame.draw.circle(screen, black, analog_clock.center, 150, 1)
 
 
 # set the title of the window and initialize pygame
@@ -59,8 +53,14 @@ while running:
     # update the analog clock
     analog_clock.update()
 
+    # draw a white screen
+    screen.fill(white)
+
     # draw the hands with the calculated end positions.
-    draw(analog_clock)  
+    draw(analog_clock)
+
+    # we have to call this for the display to update.
+    pygame.display.flip()
 
     # check for any exit button presses and quit the program if any are found.
     for event in pygame.event.get():
