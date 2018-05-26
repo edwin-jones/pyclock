@@ -10,6 +10,9 @@ center = (200, 200)
 # create a window based on the desired screen size.
 screen = pygame.display.set_mode(screen_size)
 
+# create a pygame clock for calculating how much time has passed etc.
+pygame_clock = pygame.time.Clock()
+
 
 # this is a small helper function we use to keep the code tidy
 def draw():
@@ -36,6 +39,9 @@ pygame.init()
 running = True
 while running:
 
+    # .tick will make this loop run at a maximum speed of the passed in seconds value.    
+    pygame_clock.tick(30)
+    
     # draw the hands with the calculated end positions.
     draw()  
 
